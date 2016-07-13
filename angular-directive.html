@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<!-- Problem: http://stackoverflow.com/questions/23987114/is-there-a-way-to-pass-the-scope-to-a-directive-templateurl-function -->
+<html ng-app="angular-directive" ng-init="msg='Welcome to AngularJS'">
+<head>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <script src="bower_components/angular/angular.min.js"></script>
+</head>
+<body>
+    <ul class="list-group">
+        <li class="list-group-item" ng-repeat="i in [1,2,3,4,5,6,7]"><tag-d tag="h{{i}}" value="msg"></tag-d></li>
+    </ul>
+    <script type="text/ng-template" id="h1.html"><h1>{{ value }}</h1></script>
+    <script type="text/ng-template" id="h2.html"><h2>{{ value }}</h2></script>
+    <script type="text/ng-template" id="h3.html"><h3>{{ value }}</h3></script>
+    <script type="text/ng-template" id="h4.html"><h4>{{ value }}</h4></script>
+    <script type="text/ng-template" id="h5.html"><h5>{{ value }}</h5></script>
+    <script type="text/ng-template" id="h6.html"><h6>{{ value }}</h6></script>
+    <script type="text/ng-template" id="h7.html"><h7>{{ value }}</h7></script>
+    <script>
+        (function() {
+            function tagd() {
+                var link = function(scope, element, attrs) {
+                    scope.template = scope.tag + '.html';
+                };
+                return {
+                    scope: {
+                        tag: '@',
+                        value: '='
+                    },
+                    restrict: 'EA', // by default
+                    link: link,
+                    template: '<div ng-include="template"></div>'
+                };
+            }
+            angular.module("angular-directive", []).directive("tagD", tagd);
+        })();
+    </script>
+</body>
+</html>
