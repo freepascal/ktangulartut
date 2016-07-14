@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <script src="bower_components/angular/angular.min.js"></script>
+</head>
+<body>
+    <div ng-controller="updateChangeCtrl">
+        {{ message }}
+    </div>
+    <script>
+        function updateChange($scope) {
+            $scope.message = "Initialize";
+            setTimeout(function() {
+                $scope.message = "Changed";
+                $scope.$apply(); // update view 
+            }, 2000);
+        }
+        var app = angular.module("app", []).controller("updateChangeCtrl", updateChange);
+    </script>
+</body>
+</html>
